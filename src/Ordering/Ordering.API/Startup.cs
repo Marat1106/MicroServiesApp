@@ -1,3 +1,5 @@
+using EventBusRabbitMQ;
+using EventBusRabbitMQ.Producers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +15,7 @@ using Ordering.Core.Repository.Base;
 using Ordering.Infrastructure.Data;
 using Ordering.Infrastructure.Repositories;
 using Ordering.Infrastructure.Repositories.Base;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +58,22 @@ namespace Ordering.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Order API", Version = "v1" });
             });
 
+            #endregion
+            #region RabbitMQ Dependencies
+            services.AddSingleton<IRabbitMQConnection>(s =>
+            {
+                var factory = new ConnectionFactory()
+                {
+                    HostName = Configuration["EventBus:HostName"]
+                };
+
+                factory.UserName = Configuration["EventBus:Username"];
+                factory.Password = Configuration["EventBus:Password"];
+
+                return new RabbitMQConnection(factory);
+            });
+
+            services.AddSingleton<EventBusRabbitMQProducer>();
             #endregion
         }
 
