@@ -39,4 +39,3 @@ namespace ShoppingWeb.ApiContainer.Infrastructure
         public abstract HttpRequestBuilder GetHttpRequestBuilder(string path);
     }
 }
-}

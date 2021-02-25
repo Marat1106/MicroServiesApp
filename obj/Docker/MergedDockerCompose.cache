@@ -1,0 +1,145 @@
+services:
+  apigateway:
+    build:
+      context: C:\Users\mrmar\source\repos\MicroServiesApp
+      dockerfile: src/APIGateway/OcelotAPIGateway/Dockerfile
+    container_name: apigateway
+    depends_on:
+      basket.api:
+        condition: service_started
+      catalog.api:
+        condition: service_started
+      ordering.api:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: apigateway
+    ports:
+    - published: 7000
+      target: 80
+    volumes:
+    - /.aspnet/https:/root/.aspnet/https/:rw
+    - /.microsoft/usersecrets:/root/.microsoft/usersecrets:rw
+  basket.api:
+    build:
+      context: C:\Users\mrmar\source\repos\MicroServiesApp
+      dockerfile: src/Basket/Basket.API/Dockerfile
+    depends_on:
+      basketdb:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings:Redis: basketdb:6379
+      EventBus:HostName: rabbitmq
+    image: basketapi
+    ports:
+    - published: 8001
+      target: 80
+    volumes:
+    - /.aspnet/https:/root/.aspnet/https/:rw
+    - /.microsoft/usersecrets:/root/.microsoft/usersecrets:rw
+  basketdb:
+    container_name: basketdb
+    image: redis
+    ports:
+    - published: 6379
+      target: 6379
+    restart: always
+    volumes:
+    - /site:/data/db:rw
+  catalog.api:
+    build:
+      context: C:\Users\mrmar\source\repos\MicroServiesApp
+      dockerfile: src/Catalog/Catalog.API/Dockerfile
+    depends_on:
+      catalogdb:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      CatalogDatabaseSettings:ConnectionString: mongodb://catalogdb:27017
+    image: catalogapi
+    ports:
+    - published: 8000
+      target: 80
+    volumes:
+    - /.aspnet/https:/root/.aspnet/https/:rw
+    - /.microsoft/usersecrets:/root/.microsoft/usersecrets:rw
+  catalogdb:
+    container_name: catalogdb
+    image: mongo
+    ports:
+    - published: 27017
+      target: 27017
+    restart: always
+    volumes:
+    - /site:/data/db:rw
+  orderdb:
+    container_name: orderdb
+    environment:
+      POSTGRES_DB: OrderDb
+      POSTGRES_PASSWORD: '123456'
+      POSTGRES_USER: postgres
+    image: postgres
+    ports:
+    - published: 5432
+      target: 5432
+    restart: always
+    volumes:
+    - pgdata:/var/lib/postgresql/data:rw
+  ordering.api:
+    build:
+      context: C:\Users\mrmar\source\repos\MicroServiesApp
+      dockerfile: src/Ordering/Ordering.API/Dockerfile
+    container_name: orderingapi
+    depends_on:
+      rabbitmq:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings:DefaultConnection: Host=orderdb;port5433;Database=OrderDb;Username=postgres;password=123456
+      EventBus:Hostname: rabbitmq
+    image: orderingapi
+    ports:
+    - published: 8002
+      target: 80
+    volumes:
+    - /.aspnet/https:/root/.aspnet/https/:rw
+    - /.mircosoft/usersecrets:/root/.microsoft/usersecrets:rw
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management-alpine
+    ports:
+    - published: 5672
+      target: 5672
+    - published: 15672
+      target: 15672
+    restart: always
+  shoppingweb:
+    build:
+      context: C:\Users\mrmar\source\repos\MicroServiesApp
+      dockerfile: src/Web/ShoppingWeb/Dockerfile
+    container_name: shoppingweb
+    depends_on:
+      apigateway:
+        condition: service_started
+      basket.api:
+        condition: service_started
+      catalog.api:
+        condition: service_started
+      ordering.api:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ApiSettings:BaseAddress: apigateway
+    image: shoppingweb
+    ports:
+    - published: 8003
+      target: 80
+    volumes:
+    - C:\Users\mrmar\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\mrmar\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
+volumes:
+  pgdata: {}

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "uUgKTmlQDxpiVsknoaA/+dyUXMnWW4FzRwlTUa+x/It/KlueayLxNIfMRtkk0Pb+RJ2ueHLoURd/mbNRtO2TSQ==",
+  "dgSpecHash": "SUHQrNwfL6NZ6QbjnUWaIdbBbcCLu9kW5Zr7jEYFN3lZ48oo41ysD/AvHBDQuInlqPDCe50DoMNZUQN6vAtqZA==",
   "success": true,
   "projectFilePath": "C:\\Users\\mrmar\\source\\repos\\MicroServiesApp\\src\\Web\\ShoppingWeb\\ShoppingWeb.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\mrmar\\.nuget\\packages\\microsoft.csharp\\4.3.0\\microsoft.csharp.4.3.0.nupkg.sha512",
     "C:\\Users\\mrmar\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\mrmar\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\mrmar\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.9\\microsoft.visualstudio.azure.containers.tools.targets.1.10.9.nupkg.sha512",
     "C:\\Users\\mrmar\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\mrmar\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\mrmar\\.nuget\\packages\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
