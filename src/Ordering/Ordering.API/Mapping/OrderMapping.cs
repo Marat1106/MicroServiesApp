@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using EventBusRabbitMQ.Events;
+using Ordering.API.DTOs;
+using Ordering.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +13,8 @@ namespace Ordering.API.Mapping
     {
         public OrderMapping()
         {
-            throw new NotImplementedException();
+            CreateMap<BasketCheckoutEvent, Order>().ReverseMap();
+            CreateMap<Order, OrderResponse>().ReverseMap();
         }
     }
 }

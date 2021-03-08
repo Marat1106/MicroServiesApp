@@ -33,3 +33,9 @@ C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\obj\Debug\ne
 C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\obj\Debug\netcoreapp3.1\Catalog.API.dll
 C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\obj\Debug\netcoreapp3.1\Catalog.API.pdb
 C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\obj\Debug\netcoreapp3.1\Catalog.API.genruntimeconfig.cache
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\bin\Debug\netcoreapp3.1\RabbitMQ.Client.dll
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\bin\Debug\netcoreapp3.1\System.Threading.Channels.dll
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\bin\Debug\netcoreapp3.1\EventBusRabbitMQ.dll
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Catalog\Catalog.API\bin\Debug\netcoreapp3.1\EventBusRabbitMQ.pdb

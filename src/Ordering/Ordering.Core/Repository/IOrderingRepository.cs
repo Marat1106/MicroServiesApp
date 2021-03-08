@@ -1,17 +1,14 @@
 ﻿using Ordering.Core.Entities;
-using Ordering.Core.Repository.Base;
+using Ordering.Core.Repositories.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ordering.Core.Repository
+namespace Ordering.Core.Repositories
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        Task<IEnumerable<Order>> GetOrdersByUsername(string userName);
-        Task<bool> DeleteOrder(string userName);
-        Task<IEnumerable<Order>> UpderOrders(string ordername);
-
+        Task<IEnumerable<Order>> GetOrdersByUsername(string username);
     }
 }

@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using EventBusRabbitMQ;
 using EventBusRabbitMQ.Common;
+using EventBusRabbitMQ.Events;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Ordering.Core.Entities;
+using Ordering.Core.Repositories;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Ordering.API.RabbitMQ
 {
@@ -15,11 +17,13 @@ namespace Ordering.API.RabbitMQ
     {
         private readonly IRabbitMQConnection _connection;
         private readonly IMapper _mapper;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public EventBusRabbitMQConsumer(IRabbitMQConnection connection, IMapper mapper)
+        public EventBusRabbitMQConsumer(IRabbitMQConnection connection, IMapper mapper, IServiceScopeFactory serviceScopeFactory)
         {
             _connection = connection;
             _mapper = mapper;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
         public void Consume()
@@ -38,9 +42,18 @@ namespace Ordering.API.RabbitMQ
         {
             if (e.RoutingKey == EventBusConstants.BasketCheckoutQueue)
             {
-                var obj = Encoding.UTF8.GetString(e.Body.Span);
-                
-                throw new NotImplementedException();
+                var message = Encoding.UTF8.GetString(e.Body.Span);
+                var basketCheckoutEvent = JsonConvert.DeserializeObject<BasketCheckoutEvent>(message);
+
+                var orderEntity = _mapper.Map<Order>(basketCheckoutEvent);
+                if (orderEntity == null)
+                    throw new ApplicationException("Entity could not be mapped.");
+
+                using (var scope = _serviceScopeFactory.CreateScope())
+                {
+                    var orderRepository = scope.ServiceProvider.GetRequiredService<IOrderRepository>();
+                    await orderRepository.AddAsync(orderEntity);
+                }
             }
         }
 

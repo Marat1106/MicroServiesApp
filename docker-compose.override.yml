@@ -11,8 +11,6 @@ services:
     basketdb:
         container_name: basketdb
         restart: always
-        volumes:
-            - ${WEBAPP_STORAGE_HOME}/site:/data/db
         ports:
             - "6379:6379"
     orderdb:
@@ -33,6 +31,7 @@ services:
             - "5672:5672"
             - "15672:15672"
     catalog.api:
+        container_name: catalogapi
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - "CatalogDatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
@@ -44,6 +43,7 @@ services:
         ports:
             - "8000:80"
     basket.api:
+        container_name: basketapi
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - "ConnectionStrings:Redis=basketdb:6379"
@@ -58,19 +58,21 @@ services:
             - "8001:80"
     ordering.api:
         container_name: orderingapi
+        restart: on-failure
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - "ConnectionStrings:DefaultConnection=Host=orderdb;port5433;Database=OrderDb;Username=postgres;password=123456"
-            - "EventBus:Hostname=rabbitmq"
+            - "ConnectionStrings:DefaultConnection=Host=orderdb;Port=5432;Database=OrderDb;Username=postgres;Password=123456"
+            - "EventBus:HostName=rabbitmq"
         depends_on:
             - rabbitmq
+            - orderdb
         volumes:
-            - ${HOME}/.mircosoft/usersecrets/:/root/.microsoft/usersecrets
+            - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
             - ${HOME}/.aspnet/https:/root/.aspnet/https/
         ports:
             - "8002:80"
-    apigateway:
-        container_name: apigateway
+
+    ocelotapigateway:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
         depends_on:
@@ -86,12 +88,12 @@ services:
         container_name: shoppingweb
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - "ApiSettings:BaseAddress=apigateway"
+            - "ApiSettings:BaseAddress=ocelotapigateway"
         depends_on:
             - catalog.api
             - basket.api
             - ordering.api
-            - apigateway
+            - ocelotapigateway
         volumes:
             - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
             - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -100,5 +102,3 @@ services:
 
 volumes:
   pgdata:
-
-

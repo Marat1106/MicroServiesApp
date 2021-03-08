@@ -35,3 +35,15 @@ C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcor
 C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\ShoppingWeb.pdb
 C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\ShoppingWeb.genruntimeconfig.cache
 C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\ShoppingWeb.csproj.CopyComplete
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\bin\Debug\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\Razor\Pages\Cart.cshtml.g.cs
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\Razor\Pages\CheckOut.cshtml.g.cs
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\Razor\Pages\Confirmation.cshtml.g.cs
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\Razor\Pages\Contact.cshtml.g.cs
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\Razor\Pages\Order.cshtml.g.cs
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\Razor\Pages\Product.cshtml.g.cs
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\Razor\Pages\ProductDetail.cshtml.g.cs
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_ProductItemPartial.cshtml.g.cs
+C:\Users\mrmar\source\repos\MicroServiesApp\src\Web\ShoppingWeb\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\_TopProductPartial.cshtml.g.cs

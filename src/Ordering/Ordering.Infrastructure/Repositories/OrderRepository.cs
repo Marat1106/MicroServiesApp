@@ -1,9 +1,12 @@
-﻿using Ordering.Core.Entities;
-using Ordering.Core.Repository;
+﻿
+using Microsoft.EntityFrameworkCore;
+using Ordering.Core.Entities;
+using Ordering.Core.Repositories;
 using Ordering.Infrastructure.Data;
 using Ordering.Infrastructure.Repositories.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,19 +18,10 @@ namespace Ordering.Infrastructure.Repositories
         {
         }
 
-        public Task<bool> DeleteOrder(string userName)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Order>> GetOrdersByUsername(string username)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Order>> UpderOrders(string ordername)
-        {
-            throw new NotImplementedException();
+            var orderList = await _dbContext.Orders.Where(o => o.Username == username).ToListAsync();
+            return orderList;
         }
     }
 }

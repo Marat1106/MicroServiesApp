@@ -1,29 +1,9 @@
 services:
-  apigateway:
-    build:
-      context: C:\Users\mrmar\source\repos\MicroServiesApp
-      dockerfile: src/APIGateway/OcelotAPIGateway/Dockerfile
-    container_name: apigateway
-    depends_on:
-      basket.api:
-        condition: service_started
-      catalog.api:
-        condition: service_started
-      ordering.api:
-        condition: service_started
-    environment:
-      ASPNETCORE_ENVIRONMENT: Development
-    image: apigateway
-    ports:
-    - published: 7000
-      target: 80
-    volumes:
-    - /.aspnet/https:/root/.aspnet/https/:rw
-    - /.microsoft/usersecrets:/root/.microsoft/usersecrets:rw
   basket.api:
     build:
       context: C:\Users\mrmar\source\repos\MicroServiesApp
       dockerfile: src/Basket/Basket.API/Dockerfile
+    container_name: basketapi
     depends_on:
       basketdb:
         condition: service_started
@@ -47,12 +27,11 @@ services:
     - published: 6379
       target: 6379
     restart: always
-    volumes:
-    - /site:/data/db:rw
   catalog.api:
     build:
       context: C:\Users\mrmar\source\repos\MicroServiesApp
       dockerfile: src/Catalog/Catalog.API/Dockerfile
+    container_name: catalogapi
     depends_on:
       catalogdb:
         condition: service_started
@@ -75,6 +54,26 @@ services:
     restart: always
     volumes:
     - /site:/data/db:rw
+  ocelotapigateway:
+    build:
+      context: C:\Users\mrmar\source\repos\MicroServiesApp
+      dockerfile: src/APIGateway/OcelotAPIGateway/Dockerfile
+    depends_on:
+      basket.api:
+        condition: service_started
+      catalog.api:
+        condition: service_started
+      ordering.api:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: ocelotapigateway
+    ports:
+    - published: 7000
+      target: 80
+    volumes:
+    - /.aspnet/https:/root/.aspnet/https/:rw
+    - /.microsoft/usersecrets:/root/.microsoft/usersecrets:rw
   orderdb:
     container_name: orderdb
     environment:
@@ -94,19 +93,22 @@ services:
       dockerfile: src/Ordering/Ordering.API/Dockerfile
     container_name: orderingapi
     depends_on:
+      orderdb:
+        condition: service_started
       rabbitmq:
         condition: service_started
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings:DefaultConnection: Host=orderdb;port5433;Database=OrderDb;Username=postgres;password=123456
-      EventBus:Hostname: rabbitmq
+      ConnectionStrings:DefaultConnection: Host=orderdb;Port=5432;Database=OrderDb;Username=postgres;Password=123456
+      EventBus:HostName: rabbitmq
     image: orderingapi
     ports:
     - published: 8002
       target: 80
+    restart: on-failure
     volumes:
     - /.aspnet/https:/root/.aspnet/https/:rw
-    - /.mircosoft/usersecrets:/root/.microsoft/usersecrets:rw
+    - /.microsoft/usersecrets:/root/.microsoft/usersecrets:rw
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3-management-alpine
@@ -122,17 +124,17 @@ services:
       dockerfile: src/Web/ShoppingWeb/Dockerfile
     container_name: shoppingweb
     depends_on:
-      apigateway:
-        condition: service_started
       basket.api:
         condition: service_started
       catalog.api:
+        condition: service_started
+      ocelotapigateway:
         condition: service_started
       ordering.api:
         condition: service_started
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ApiSettings:BaseAddress: apigateway
+      ApiSettings:BaseAddress: ocelotapigateway
     image: shoppingweb
     ports:
     - published: 8003

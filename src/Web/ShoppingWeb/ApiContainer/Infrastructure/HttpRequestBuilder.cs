@@ -20,12 +20,18 @@ namespace ShoppingWeb.ApiContainer.Infrastructure
             _apiBuilder = apiBuilder;
             _baseAddress = _apiBuilder.GetLeftPart();
         }
+
+        public HttpRequestBuilder()
+        {
+            _request = new HttpRequestMessage();
+        }
         public HttpRequestBuilder HttpMethod(HttpMethod httpMethod)
         {
             _request.Method = httpMethod;
             return this;
         }
-        public HttpRequestBuilder Headers(Action<HttpRequestHeaders> funcOfHeaders)
+        public HttpRequestBuilder Headers(
+        Action<HttpRequestHeaders> funcOfHeaders)
         {
             funcOfHeaders(_request.Headers);
             return this;
@@ -39,6 +45,7 @@ namespace ShoppingWeb.ApiContainer.Infrastructure
             }
             return this;
         }
+
         public HttpRequestBuilder AddToPath(string path)
         {
             _apiBuilder.AddToPath(path);
@@ -51,6 +58,7 @@ namespace ShoppingWeb.ApiContainer.Infrastructure
             _request.RequestUri = _apiBuilder.GetUri();
             return this;
         }
+
         public HttpRequestBuilder Content(HttpContent content)
         {
             _request.Content = content;
@@ -61,15 +69,12 @@ namespace ShoppingWeb.ApiContainer.Infrastructure
             _request.RequestUri = new ApiBuilder(uri.ToString()).GetUri();
             return this;
         }
+
         public HttpRequestBuilder RequestUri(string uri)
         {
             return RequestUri(new Uri(uri));
         }
-        public HttpRequestBuilder BaseAddress(string address)
-        {
-            _baseAddress = address;
-            return this;
-        }
+
         public HttpRequestBuilder Subdomain(string subdomain)
         {
             _apiBuilder.SetSubdomain(subdomain);

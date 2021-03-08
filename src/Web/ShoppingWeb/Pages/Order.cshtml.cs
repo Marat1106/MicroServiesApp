@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShoppingWeb.ApiContainer.Interfaces;
 using ShoppingWeb.Models;
 
-namespace AspnetRunBasics
+namespace ShoppingWeb
 {
     public class OrderModel : PageModel
     {

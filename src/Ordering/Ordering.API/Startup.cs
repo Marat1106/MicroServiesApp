@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using EventBusRabbitMQ;
-using EventBusRabbitMQ.Producers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +13,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Ordering.API.Extentions;
-using Ordering.Core.Repository;
-using Ordering.Core.Repository.Base;
+using Ordering.API.RabbitMQ;
+using Ordering.Core.Entities;
+using Ordering.Core.Repositories;
+using Ordering.Core.Repositories.Base;
 using Ordering.Infrastructure.Data;
 using Ordering.Infrastructure.Repositories;
 using Ordering.Infrastructure.Repositories.Base;
 using RabbitMQ.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Ordering.API
 {
@@ -48,18 +49,6 @@ namespace Ordering.API
             #endregion
 
             #region RabbitMQ Dependencies
-
-            #endregion
-
-            #region Swagger Dependencies
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Order API", Version = "v1" });
-            });
-
-            #endregion
-            #region RabbitMQ Dependencies
             services.AddSingleton<IRabbitMQConnection>(s =>
             {
                 var factory = new ConnectionFactory()
@@ -73,7 +62,16 @@ namespace Ordering.API
                 return new RabbitMQConnection(factory);
             });
 
-            services.AddSingleton<EventBusRabbitMQProducer>();
+            services.AddSingleton<EventBusRabbitMQConsumer>();
+            #endregion
+
+            #region Swagger Dependencies
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Order API", Version = "v1" });
+            });
+
             #endregion
         }
 
@@ -88,6 +86,7 @@ namespace Ordering.API
             app.UseRouting();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

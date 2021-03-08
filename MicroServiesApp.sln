@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{FEC0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "src\Catalog\Catalog.API\Catalog.API.csproj", "{AB2D0DAB-29A2-4347-B89D-9C645FE76DB7}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{067D2542-F0DA-4935-8313-6DD710FB5090}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{3EF71595-3A9B-455B-A7FD-A5673C0A662B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBusRabbitMQ", "src\Common\EventBusRabbitMQ\EventBusRabbitMQ.csproj", "{747BE61B-8C9B-4988-9A2D-14025C6C97C3}"
@@ -33,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotAPIGateway", "src\API
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{3ADFB39B-494C-4D58-9D2C-FCA4A5038DAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingWeb", "src\Web\ShoppingWeb\ShoppingWeb.csproj", "{D3F2814F-AC60-44E5-80B0-54D5C269945C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingWeb", "src\Web\ShoppingWeb\ShoppingWeb.csproj", "{D3F2814F-AC60-44E5-80B0-54D5C269945C}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{52BF584E-F2A6-4661-8433-D68AF752942A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,6 @@ Global
 		{AB2D0DAB-29A2-4347-B89D-9C645FE76DB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB2D0DAB-29A2-4347-B89D-9C645FE76DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB2D0DAB-29A2-4347-B89D-9C645FE76DB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{067D2542-F0DA-4935-8313-6DD710FB5090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{067D2542-F0DA-4935-8313-6DD710FB5090}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{067D2542-F0DA-4935-8313-6DD710FB5090}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{067D2542-F0DA-4935-8313-6DD710FB5090}.Release|Any CPU.Build.0 = Release|Any CPU
 		{747BE61B-8C9B-4988-9A2D-14025C6C97C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{747BE61B-8C9B-4988-9A2D-14025C6C97C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{747BE61B-8C9B-4988-9A2D-14025C6C97C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -77,6 +73,10 @@ Global
 		{D3F2814F-AC60-44E5-80B0-54D5C269945C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3F2814F-AC60-44E5-80B0-54D5C269945C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3F2814F-AC60-44E5-80B0-54D5C269945C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52BF584E-F2A6-4661-8433-D68AF752942A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52BF584E-F2A6-4661-8433-D68AF752942A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52BF584E-F2A6-4661-8433-D68AF752942A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52BF584E-F2A6-4661-8433-D68AF752942A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,10 +19,7 @@ namespace ShoppingWeb.ApiContainer
             _settings = settings;
         }
 
-        public override HttpRequestBuilder GetHttpRequestBuilder(string path)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public async Task<IEnumerable<OrderResponse>> GetOrdersByUsername(string username)
         {
